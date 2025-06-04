@@ -4,7 +4,7 @@ A full-featured Restaurant Billing and Management desktop application built with
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Add/View/Delete Dishes**  
 - **Billing System** with auto-calculated totals  
