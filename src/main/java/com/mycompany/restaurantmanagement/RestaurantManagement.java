@@ -9,7 +9,6 @@ public class RestaurantManagement extends JFrame {
 
     public RestaurantManagement() {
         setTitle("Restaurant Billing System");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Full screen
 
         // Create main panel with BoxLayout (Y_AXIS)
@@ -31,11 +30,14 @@ public class RestaurantManagement extends JFrame {
         JButton btnCreateBill = createStyledButton("Create a Bill", btnFont);
         JButton btnAddItem = createStyledButton("Add a New Item", btnFont);
         JButton btnDeleteItem = createStyledButton("Delete an Item", btnFont);
+        JButton btnExportExcel = createStyledButton("Export To Excel", btnFont);
         JButton btnExit = createStyledButton("Exit", btnFont);
 
         mainPanel.add(btnCreateBill);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(btnAddItem);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(btnExportExcel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(btnDeleteItem);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -52,6 +54,10 @@ public class RestaurantManagement extends JFrame {
         btnAddItem.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(this, "Opening Add Item Screen...");
             new AddItem();
+        });
+        btnExportExcel.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(this, "Opening Export To Excel Screen...");
+            new ExportScreen();
         });
 
         btnDeleteItem.addActionListener((ActionEvent e) -> {
@@ -78,7 +84,6 @@ public class RestaurantManagement extends JFrame {
 
     public static void main(String[] args) {
             SwingUtilities.invokeLater(() -> {
-                
             RestaurantManagement screen = new RestaurantManagement();
             screen.setVisible(true);
         });
