@@ -13,7 +13,6 @@ public class ExportScreen extends JFrame {
     public ExportScreen() {
         setTitle("Export to Excel");
         setSize(400, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JButton exportDishesBtn = new JButton("Export Dishes to Excel");
@@ -63,12 +62,12 @@ public class ExportScreen extends JFrame {
 
             try (FileOutputStream out = new FileOutputStream(excelFileName)) {
                 workbook.write(out);
-                JOptionPane.showMessageDialog(this, "✅ Exported to " + excelFileName);
+                JOptionPane.showMessageDialog(this, "Exported to " + excelFileName);
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "❌ Failed to export: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed to export: " + ex.getMessage());
         }
     }
 

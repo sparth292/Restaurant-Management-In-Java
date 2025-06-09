@@ -3,49 +3,58 @@ package com.mycompany.restaurantmanagement;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
 
 public class RestaurantManagement extends JFrame {
 
     public RestaurantManagement() {
         setTitle("Restaurant Billing System");
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Full screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Create main panel with BoxLayout (Y_AXIS)
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 300, 100, 300)); // Padding
-        mainPanel.setBackground(Color.LIGHT_GRAY); // Optional background color
+        // Main split panel: left (label) + right (buttons)
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
 
-        // Heading
+        // ===== LEFT Panel =====
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(Color.LIGHT_GRAY);
+        leftPanel.setLayout(new GridBagLayout()); // Center the label
+
         JLabel heading = new JLabel("Ashoka Restaurant");
-        heading.setFont(new Font("Arial", Font.BOLD, 32));
-        heading.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(heading);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+        heading.setFont(new Font("Arial", Font.BOLD, 40));
+        heading.setForeground(Color.DARK_GRAY);
+        leftPanel.add(heading); // Centered using GridBagLayout
 
-        // Buttons
+        // ===== RIGHT Panel =====
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100)); // Padding
+        rightPanel.setBackground(Color.WHITE); // Optional
+
         Font btnFont = new Font("Arial", Font.PLAIN, 24);
-        
+
         JButton btnCreateBill = createStyledButton("Create a Bill", btnFont);
         JButton btnAddItem = createStyledButton("Add a New Item", btnFont);
-        JButton btnDeleteItem = createStyledButton("Delete an Item", btnFont);
         JButton btnExportExcel = createStyledButton("Export To Excel", btnFont);
+        JButton btnDeleteItem = createStyledButton("Delete an Item", btnFont);
         JButton btnExit = createStyledButton("Exit", btnFont);
 
-        mainPanel.add(btnCreateBill);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        mainPanel.add(btnAddItem);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        mainPanel.add(btnExportExcel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        mainPanel.add(btnDeleteItem);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        mainPanel.add(btnExit);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 70)));
+        rightPanel.add(btnCreateBill);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        rightPanel.add(btnAddItem);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        rightPanel.add(btnExportExcel);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        rightPanel.add(btnDeleteItem);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        rightPanel.add(btnExit);
 
-        add(mainPanel); // Add to frame
+        // Add both panels to main
+        mainPanel.add(leftPanel);
+        mainPanel.add(rightPanel);
+        add(mainPanel);
 
-        // Action listeners
+        // Action listeners (same logic)
         btnCreateBill.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(this, "Opening Bill Creation Screen...");
             new BillingSystem();
@@ -55,6 +64,7 @@ public class RestaurantManagement extends JFrame {
             JOptionPane.showMessageDialog(this, "Opening Add Item Screen...");
             new AddItem();
         });
+
         btnExportExcel.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(this, "Opening Export To Excel Screen...");
             new ExportScreen();
@@ -73,7 +83,6 @@ public class RestaurantManagement extends JFrame {
         });
     }
 
-    // Utility method to create styled buttons
     private JButton createStyledButton(String text, Font font) {
         JButton button = new JButton(text);
         button.setFont(font);
@@ -83,7 +92,7 @@ public class RestaurantManagement extends JFrame {
     }
 
     public static void main(String[] args) {
-            SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             RestaurantManagement screen = new RestaurantManagement();
             screen.setVisible(true);
         });
